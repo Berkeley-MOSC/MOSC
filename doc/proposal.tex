@@ -27,25 +27,28 @@ response.
 Telcos, local and federal emergency response agencies, municipal governments of
 disaster prone regions around the globe.
 \subsection*{Beneficiaries}
-Everyone in the world after a disaster because our product enables more stable
-communication.
+Civilians, emergency responders and supporting staff, aid organizations,
+extended (out-of-area) families and friends, and others that communicate within
+and in to or out of an area affected by an large-scale emergency.
 \subsection*{Market Alternatives}
-\subsubsection*{goTenna}\footnote{Snippet taken from Nick's ecosystem writeup}
+\subsubsection*{goTenna\footnote{Snippet taken from Nick's ecosystem writeup}}
 The premise behind the goTenna is simple: a user with a goTenna connects their
 phone to the goTenna via BTLE, and then uses a proprietary application to send
 texts or a location to another goTenna user.   The goTenna has a range of about
 a mile in urban areas, and up to four miles in open areas.  The goTenna is
 marketed toward those that want to be able to communicate off-the-grid; goTenna
-calls itself “adventure-ready” – combined with the images of backpacking and
-the wilderness – indicating its target users are adventure-seekers whose
+calls itself ``adventure-ready" -- combined with the images of backpacking and
+the wilderness -- indicating its target users are adventure-seekers whose
 travels often take them away from cell phone towers.
 
 \subsubsection*{Globalstar}
-Globalstar is a satellite startup that was previously negotiating with the FCC
-about licensing their own private frequency channel, so that they can expand
-during times of crisis. It is currently unknown whether or not they were able
-to attain this private licensed frequency.
-\subsubsection*{???}
+Globalstar is a satellite startup that was negotiating with the FCC about
+licensing open frequencies in emergencies that close to frequencies they already
+own so that they can provide communications for on-the-ground personnel.
+Unfortunately, it doesn't seem like there's any information about whether or not
+Globalstar was able to acquire the rights to these open frequencies.
+
+\subsubsection*{}
 
 \section{MVP Solution Recommendation}
 TODO
@@ -58,18 +61,28 @@ TODO
         the command center to get help because the phone networks are down, he
         can call the IC and get help immediately
     \item After an earthquake, a mother is able to call her son's school and
-        confirm that her son is safe
-    \item TODO NICK
+        confirm that her son is safe.  She is able to place a call to her
+        husband and learns that a large section of freeway overpass has
+        collapsed and that he cannot make it to their son's school to pick him
+        up, and after placing more calls to a few of her neighbors, goes to the
+        school to pick up her son an her neighbors' children, leading to less
+        congested roads and a stronger sense of community.
+    \item While vacationing, a young couple learn that copious amounts of rain
+        has led to flash flooding in their hometown.  Fortunately, their parents
+        are able to call them to let them know that they are safe at home and,
+        although their home lost power, they have ample food, clean water, and
+        candles to last through the storm.
 \end{enumerate}
 \subsection*{Mockups}
 TODO Nick
 
 \subsection*{Future Roadmap}
-We plan to expand this service to other disaster prone regions around the world.
-This will include making deals and partnerships with the governments and telecom
-companies there.  Mobile Mesh - if possible, we plan to implement hardware
-solutions that will allow people to communicate via radio frequencies without
-wifi/cell towers.
+While this solution can undoubtedly help increase phone network capacity, it
+doesn't help in the event of widespread infrastructure outages -- that is, when
+trunk lines are severed or the CO has burnt to the ground.  Implementing
+a solution that would enable RF communication without relying on infrastructure
+would be a great next step, but is unfortunately out of the scope of what can be
+accomplished in one semester.
 
 \section{Implementation}
 \subsection*{KPIs}
@@ -78,25 +91,38 @@ multiplexing.
 
 \subsection*{Partners}
 We're talking to a professor from the International Computer Science Institute
-(ICSI) about ad hoc infrastructure and hoping to partner with them to borrow
-their cell towers for testing. We're also thinking of partnering with AT\&T
-Innovation Lab as they might let us test our technology on a much larger scale.
+(ICSI) about ad-hoc infrastructure and hoping to partner with them to use their
+private cell towers for testing. We're also thinking of partnering with AT\&T's
+Innovation Lab as a partnership with a telco would enable testing of our
+technology on a much larger scale.
 
 \subsection*{Risks and Constraints}
-The risk is that large companies like AT\&T and Verizon won't be willing to
-adopt our technology because we're just college students (not the most
-experienced ones either) working on a piece of software. Without partnership
-with these companies, it's pretty hard to roll out our technology.
+The primary risk is that large, bureaucratic telecommunications companies won't
+be willing to adopt our technology because, even if funding for the actual
+hardware itself were to come from other organizations, said companies wouldn't
+want to add and maintain features to their existing infrastructure, especially
+given the relatively niche use case for our technology (i.e. a large-scale
+emergency).
 
 \section{Team Roles}
-Mei -- Product Manager
-Gavin -- Business
-Michael -- Software Engineer
-Calvin -- Software Engineer
-Nick -- Software Engineer
+Our product requires an in-depth knowledge of networking and
+software engineering; we need to create a pipeline that will convert what is
+essentially raw audio on-the-wire to a digital format, encapsulate it, and
+multiplex it back on-the-wire.  Our team is comprised of all engineers, so we
+are in the fortunate position where we all can and will be contributing to the
+codebase for this project.
 
-All of us are EECS/CS students so we're all going to end up coding portions of
-the project.
+\begin{center}
+    \begin{tabular}{ c | c | c }
+        \textbf{Name} & \textbf{``Role(s)"} & \textbf{Areas of Expertise}\\
+        \hline
+        Mei & Product Manager and Engineer & SE, Networking\\
+        Gavin & Business and Engineer & SE\\
+        Michael & Engineer & SE\\
+        Calvin & Engineer & SE\\
+        Nick & Product Designer and Engineer & Networking, Security, Backend SE, and Hardware\\
+    \end{tabular}
+\end{center}
 
 \section{Appendix}
 \end{document}
