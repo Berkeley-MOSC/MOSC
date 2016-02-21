@@ -48,11 +48,45 @@ own so that they can provide communications for on-the-ground personnel.
 Unfortunately, it doesn't seem like there's any information about whether or not
 Globalstar was able to acquire the rights to these open frequencies.
 
-\subsubsection*{}
+\subsubsection*{Microcells}
+Many mobile service providers in the US currently offer devices that customers
+can buy and place in their own homes to act as a cell tower for their mobile
+phones.  These devices connect to the carrier's network via the customer's
+Internet connection.  With most of these devices, only select IMEIs are allowed
+to connect to the microcell, ensuring that only the customer and those
+designated by the customer use the microcell.
+
+\subsection*{Differentiators}
+goTenna requires that users buy a separate piece of hardware and carry it with
+them to keep in touch in the event of an emergency.  The price of said hardware
+is a relatively large barrier to entry (at \$200 for two goTennas):  the average
+person in the United States (much less the world at large) would not likely be
+able to afford a goTenna if it were to be used solely in an emergency situation.
+A system like the goTenna also doesn't scale as well, as it's designed to be
+used by a small group of friends rather than a large (i.e. city or region-wide)
+communications system.\\
+
+Globalstar is requesting that the FCC license spectrum that would otherwise be
+opened to the public for use with WiFi.  While their proposal includes handing
+out access to the public in the event of an emergency, the main focus of
+Globalstar's proposal is to reserve spectrum for itself (so that it can charge
+consumer's to use said spectrum with its services).  Current mobile phones and
+devices are also incompatible with the frequencies Globalstar wants to use.  A
+solution like MOSC does not require any spectrum changes, nor does it require
+any new hardware on the user's side.\\
+
+Microcells are a great solution for homes and businesses that don't have good
+cell reception, but they don't scale and a given microcell services only a
+limited number of whitelisted users, for good reason.  Opening up a
+microcell-like device to the public would cause some privacy and security
+concerns; unless the microcell owner places the microcell on its own VLAN (as is
+somewhat common in enterprise but almost nonexistent in households), the
+microcell is a device living on the production LAN of a home or business,
+creating privacy and security concerns for both the network operator and those
+connecting to the microcell.  By multiplexing calls at the carrier's equipment,
+these concerns are alleviated.
 
 \section{MVP Solution Recommendation}
-TODO
-
 \subsection*{User Stories}
 \begin{enumerate}
     \item After working for an extended period of time in an area devastated by
