@@ -1,18 +1,58 @@
 <html>
 	<head>
 		<link rel="stylesheet" type="text/css" href="styles.css">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<!-- Latest compiled and minified CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+		<link href='https://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
 	</head>
 	<body>
-		<div class="info">
-			<form>
-				<h2>Send packets to access point</h2>
-			  Protocol:<br>
-			  <input type="text" name="protocol"><br>
-			  Host:<br>
-			  <input type="text" name="host"><br><br>
-			  <h3><a href="error.html">Submit many</a></h3>
-			  <h3><a href="error2.html">Submit one</a></h3>
-			</form>
+	  <div class="row">
+		  <div class="col-md-3" id="user-input">
+
+		  	<div class="user-header">
+		  		<div class="title">MOSC</div>
+		  		<div class="description">Multiplexing Oversubscribed Circuits</div>
+		  	</div>
+
+		  	<form action="https://moscbackend.nicholas-fong.com/api/v1/call">
+		  		Make emergency call:<br>
+		  		<input type="text" name="number" class="input-field" placeholder="Number"><br>
+			    <input type="submit" value="Submit" class="submit">
+			  </form>
+
+			  <form action="moscbackend.nicholas-fong.com/api/v1/call">
+		  		Make non-emergency call:<br>
+		  		<input type="text" name="number" class="input-field" placeholder="Number"><br>
+		  		<input type="text" name="message" class="input-field" placeholder="Message"><br>
+			    <input type="submit" value="Submit" class="submit">
+			  </form>
+
+			  <form action="moscbackend.nicholas-fong.com/api/v1/call">
+		  		Send SMS:<br>
+		  		<input type="text" name="number" class="input-field" placeholder="Number"><br>
+		  		<input type="text" name="message" class="input-field" placeholder="Message"><br>
+			    <input type="submit" value="Submit" class="submit">
+			  </form>
+
+		  	<form action="https://moscbackend.nicholas-fong.com/api/v1/url">
+			    Visit website:<br>
+			    <input type="text" name="url" class="input-field" placeholder="Website Url"><br>
+			    <input type="submit" value="Submit" class="submit">
+				</form>
+		  </div>
+		  <div class="col-md-9 analytics">
+
+		  	<div class="analytics-header">
+		  		Analytics Dashboard
+		  	</div>
+		  	
+		  	<div class="analytics-data">
+		  		Stuff
+		  	</div>
+		  </div>
 		</div>
 	</body>
+
+	<script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 </html>
