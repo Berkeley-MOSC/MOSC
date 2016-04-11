@@ -1,6 +1,8 @@
-from flask import Flask
+from flask import Flask, render_template, abort, request, redirect
 import requests
 import filter as mf
+# import twilio.twiml
+
 app = Flask(__name__)
 
 mf_instance = mf.mosc_buffer()
@@ -92,7 +94,7 @@ def pass_connection(connection_type):
     return mf_instance(connection_type)
 
 def generate_503():
-    pass
+	return render_template('503view.html'), 503
 
 def send_sms(number, message):
     pass
@@ -112,5 +114,32 @@ def reject_call():
 def reject_ecall():
     pass
 
-if __name == '__main__':
+
+################### Twilio #####################
+callers = {
+    "+16507769918": "Gavin Chan",
+    "+14158675310": "Boots",
+    "+14158675311": "Virgil",
+    "+12566671171": "MOSC",
+}
+ 
+@app.route("/", methods=['GET', 'POST'])
+def hello_monkey():
+    # Get the caller's phone number from the incoming Twilio request
+    from_number = request.values.get('From', None)
+    resp = twilio.twiml.Response()
+ 
+    # if the caller is someone we know:
+    if from_number in callers:
+        # Greet the caller by name
+        resp.say("Hello " + callers[from_number])
+    else:
+        resp.say("Hello Monkey")
+ 
+    return str(resp)
+
+
+
+
+if __name__ == '__main__':
     app.run()
