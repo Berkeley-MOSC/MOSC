@@ -17,35 +17,39 @@ class mosc_buffer(object):
 		threading.Timer(5.0, refresh_buffer).start()
 
 	def add(self, packet):
+		self.reassign_buffers()
 		if self.filter(packet):
-			self.buffer.append(packet)
+			if packet.type == "data":
+				self.data.append(packet)
+			elif packet.type == "call":
+				self.calls.append(packet)
+			elif packet.type == "sms":
+				self.sms.append(packet)
+			elif packet.type == "emergencies":
+				self.emergencies.append(packet)
 
 	def filter(self, packet):
 		prob = 0
-		if packet == "data":
-			# Drop because the data buffer is len 0 since allocated space up the chain
+		if packet.type == "data":
 			if self.data == None:
 				return False
-			else:
-				prob = (self.max_data - len(self.data)) / self.past_num_data
-		elif packet == "call":
+			prob = (self.max_data - len(self.data)) / self.past_num_data
+		elif packet.type == "call":
 			if self.calls == None:
 				return False
-			else:
-				prob = (self.max_calls - len(self.calls)) / self.past_num_calls
-		elif packet == "sms":
+			prob = (self.max_calls - len(self.calls)) / self.past_num_calls
+		elif packet.type == "sms":
 			if self.sms == None:
 				return False
-			else:
-				prob = (self.max_sms - len(self.sms)) / self.past_num_sms
-		elif packet == "emergencies":
+			prob = (self.max_sms - len(self.sms)) / self.past_num_sms
+		elif packet.type == "emergencies":
 			prob = (self.max_emergencies - len(self.emergencies)) / self.past_num_emergencies
 		if prob > 1:
 			return True
-		else:
-			return random.random() < prob
+		return random.random() < prob
 
 	def refresh_buffer(self):
 		self.past_num_data, self.past_num_calls, self.past_num_sms, self.past_num_emergencies = len(self.data), len(self.calls), len(self.sms), len(self.emergencies)
 
 	def reassign_buffers(self):
+		pass
