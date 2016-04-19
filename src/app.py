@@ -9,7 +9,7 @@ def url_endpoint():
     if pass_connection('url'):
         # Generate request to the URL, serve back to user
         req = request.get(url, stream = True)
-        return Response(stream_with_context(req.iter_content()), 
+        return Response(stream_with_context(req.iter_content()),
                 content_type = req.headers['content-type'])
     else:
         return generate_503()
@@ -42,7 +42,47 @@ def e_call_endpoint():
 
 @app.route('/api/v1/stats/')
 def return_stats():
-    pass
+    xml = ""
+    # Emergency calls
+    xml += "<ecall>\n"
+    xml += "    <received>"
+    xml += filter.num_received_ecalls()
+    xml += "    </received>\n"
+    xml += "    <served>"
+    xml += filter.num_served_ecalls()
+    xml += "    </served>\n"
+    xml += "</ecall>\n"
+
+    # Standard calls
+    xml += "<call>\n"
+    xml += "    <received>"
+    xml += filter.num_received_calls()
+    xml += "    </received>\n"
+    xml += "    <served>"
+    xml += filter.num_served_calls()
+    xml += "    </served>\n"
+    xml += "</call>\n"
+
+    # SMS
+    xml += "<sms>\n"
+    xml += "    <received>"
+    xml += filter.num_received_sms()
+    xml += "    </received>\n"
+    xml += "    <served>"
+    xml += filter.num_served_sms()
+    xml += "    </served>\n"
+    xml += "</sms>\n"
+
+    # Data
+    xml += "<data>\n"
+    xml += "    <received>"
+    xml += filter.num_received_data()
+    xml += "    </received>\n"
+    xml += "    <served>"
+    xml += filter.num_served_data()
+    xml += "    </served>\n"
+    xml += "</data>"
+    return Response(xml, mimetype='text/xml')
 
 ################### Responses #####################
 def pass_connection(connection_type):
