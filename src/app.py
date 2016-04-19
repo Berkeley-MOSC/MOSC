@@ -45,42 +45,42 @@ def return_stats():
     xml = ""
     # Emergency calls
     xml += "<ecall>\n"
-    xml += "    <received>\n"
+    xml += "    <received>"
     xml += filter.num_received_ecalls()
-    xml += "    <\n/received>\n"
-    xml += "    <served>\n"
+    xml += "    </received>\n"
+    xml += "    <served>"
     xml += filter.num_served_ecalls()
-    xml += "    <\n/served>\n"
+    xml += "    </served>\n"
     xml += "</ecall>\n"
 
     # Standard calls
     xml += "<call>\n"
-    xml += "    <received>\n"
+    xml += "    <received>"
     xml += filter.num_received_calls()
-    xml += "    <\n/received>\n"
-    xml += "    <served>\n"
+    xml += "    </received>\n"
+    xml += "    <served>"
     xml += filter.num_served_calls()
-    xml += "    <\n/served>\n"
+    xml += "    </served>\n"
     xml += "</call>\n"
 
     # SMS
     xml += "<sms>\n"
-    xml += "    <received>\n"
+    xml += "    <received>"
     xml += filter.num_received_sms()
-    xml += "    <\n/received>\n"
-    xml += "    <served>\n"
+    xml += "    </received>\n"
+    xml += "    <served>"
     xml += filter.num_served_sms()
-    xml += "    <\n/served>\n"
+    xml += "    </served>\n"
     xml += "</sms>\n"
 
     # Data
     xml += "<data>\n"
-    xml += "    <received>\n"
+    xml += "    <received>"
     xml += filter.num_received_data()
-    xml += "    <\n/received>\n"
-    xml += "    <served>\n"
+    xml += "    </received>\n"
+    xml += "    <served>"
     xml += filter.num_served_data()
-    xml += "    <\n/served>\n"
+    xml += "    </served>\n"
     xml += "</data>"
     return Response(xml, mimetype='text/xml')
 
