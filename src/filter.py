@@ -25,15 +25,21 @@ class mosc_buffer(object):
 			if packet.type == "data":
 				self.served_data += 1
 				self.data.append([time.time(), packet])
+				return True
 			elif packet.type == "call":
 				self.served_calls += 1
 				self.calls.append([time.time(), packet])
+				return True
 			elif packet.type == "sms":
 				self.served_sms += 1
 				self.sms.append([time.time(), packet])
+				return True
 			elif packet.type == "emergencies":
 				self.served_ecalls += 1
 				self.emergencies.append([time.time(), packet])
+				return True
+			return False
+		return False
 
 	def filter(self, packet):
 		prob = 0
