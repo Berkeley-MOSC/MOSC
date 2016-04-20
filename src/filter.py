@@ -38,7 +38,6 @@ class mosc_buffer(object):
 				self.served_ecalls += 1
 				self.emergencies.append([time.time(), packet])
 				return True
-			return False
 		return False
 
 	def filter(self, packet):
@@ -98,24 +97,16 @@ class mosc_buffer(object):
 		self.emergencies = [x for x in self.emergencies if not self.expired_emergencies(x)]
 
 	def expired_data(x):
-		if time.time() - x[0] >= 10:
-			return True
-		return False
+		return time.time() - x[0] >= 10
 
 	def expired_calls(x):
-		if time.time() - x[0] >= 20:
-			return True
-		return False
+		return time.time() - x[0] >= 20
 
 	def expired_sms(x):
-		if time.time() - x[0] >= 2:
-			return True
-		return False
+		return time.time() - x[0] >= 2
 
 	def expired_emergencies(x):
-		if time.time() - x[0] >= 20:
-			return True
-		return False
+		return time.time() - x[0] >= 20
 
 	def num_received_ecalls(self):
 		return self.total_ecalls
