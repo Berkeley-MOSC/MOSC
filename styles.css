@@ -65,17 +65,51 @@ html, body {
 
 .analytics-data {
 	height: calc(100% - 110px);
-	background: #EDF3F9;
+	background: #eef2f7;
 	margin-left: -15px;
 	margin-right: -15px;
 	padding: 15px;
+	padding-right: 30px;
+}
+
+.analytics-data ul {
+	margin-left: 10px;
+	list-style-type: none;
+}
+
+.analytics-data li {
+	display: inline-block;
+}
+
+.chart {
+	padding-right: 150px;
+	margin-top: 20px;
+	margin-bottom: 20px;
 }
 
 .chart div {
-  font: 10px sans-serif;
-  background-color: blue;
+  font: 12px sans-serif;
+  background-color: #247BA0;
   text-align: right;
   padding: 3px;
   margin: 1px;
   color: white;
+}
+
+.analytics-data hr {
+	border: 0;
+  height: 0;
+  width: 90%;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.explanation {
+	font-size: 16px;
+	padding-left: 50px;
+	padding-right: 50px;
+}
+
+.explanation div {
+	margin-top: 20px;
 }

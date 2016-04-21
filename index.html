@@ -17,27 +17,31 @@
 		  		<div class="description">Multiplexing Oversubscribed Circuits</div>
 		  	</div>
 
-		  	<form action="https://moscbackend.nicholas-fong.com/api/v1/call">
-		  		Make emergency call:<br>
+		  	<form>
+					The control panel below will let you make calls, send messages or look up websites through the cell tower access point that we built.
+				</form>
+
+		  	<form action="https://moscbackend.nicholas-fong.com/api/v1/emergency_call">
+		  		<b>Make emergency call:</b><br>
 		  		<input type="text" name="number" class="input-field" placeholder="Number"><br>
 			    <input type="submit" value="Submit" class="submit">
 			  </form>
 
 			  <form action="https://moscbackend.nicholas-fong.com/api/v1/call">
-		  		Make non-emergency call:<br>
+		  		<b>Make non-emergency call:</b><br>
 		  		<input type="text" name="number" class="input-field" placeholder="Number"><br>
 			    <input type="submit" value="Submit" class="submit">
 			  </form>
 
-			  <form action="https://moscbackend.nicholas-fong.com/api/v1/call">
-		  		Send SMS:<br>
+			  <form action="https://moscbackend.nicholas-fong.com/api/v1/sms">
+		  		<b>Send SMS:</b><br>
 		  		<input type="text" name="number" class="input-field" placeholder="Number"><br>
 		  		<input type="text" name="message" class="input-field" placeholder="Message"><br>
 			    <input type="submit" value="Submit" class="submit">
 			  </form>
 
 		  	<form action="https://moscbackend.nicholas-fong.com/api/v1/http">
-			    Visit website:<br>
+			    <b>Visit website:</b><br>
 			    <input type="text" name="url" class="input-field" placeholder="Website Url"><br>
 			    <input type="submit" value="Submit" class="submit">
 				</form>
@@ -49,14 +53,36 @@
 		  	</div>
 		  	
 		  	<div class="analytics-data">
-		  		
-		  		<div class="chart ecall-chart"></div>
-		  		<br />
-					<div class="chart call-chart"></div>
-					<br />
-					<div class="chart sms-chart"></div>
-					<br />
-					<div class="chart web-chart"></div>
+		  		<ul>
+			  		<li>
+			  			<h4>Emergency calls</h4>
+			  			<div class="chart ecall-chart"></div>
+			  		</li>
+						<li>
+							<h4>Regular calls</h4>
+							<div class="chart call-chart"></div>
+						</li>
+						<li>
+							<h4>Text messages</h4>
+							<div class="chart sms-chart"></div>
+						</li>
+						<li>
+							<h4>Web searches</h4>
+							<div class="chart web-chart"></div>
+						</li>
+					</ul>
+
+					<hr>
+
+					<div class="explanation">
+						<h3>So what is really happening?</h3>
+						<div>
+							As you know, everything from your phone, whether it's calls, text messages, or data all go through cell towers. During disasters, cell towers get overwhelmed with traffic and go down. What we're doing is making sure that the important stuff can go through in times of emergency by dropping less essential traffic and preventing cell towers from being overloaded.
+						</div>
+						<div>
+							What you see on this page is our modest demo. The control panel on the left lets you send traffic towards a cell tower that we built remotely. The graphs above show what kind of data we received, and how many we actually serve. The calls/texts/etc. that aren't served are dropped so our cell tower doesn't get overwhelmed.
+						</div>
+					</div>
 		  	</div>
 		  </div>
 		</div>
@@ -69,21 +95,30 @@
 		var call_data = [0, 0];
 		var sms_data = [0, 0];
 		var web_data = [0, 0];
+		var labels = ["# Received", "# Served"];
+		var i = 0;
 
 		d3.selectAll(".chart")
 		  .selectAll("div")
 		    .data(ecall_data)
-		  .enter().append("div")
-		    .style("width", function(d) {
-		    	return 10 + "px"; 
-		    })
-		    .text(function(d) { return d; });
+		  .enter()
+		  	.append("span")
+		  		.text(function(d) {
+		  			if (i == 0) {
+		  				return labels[i++];
+		  			}
+		  			return labels[i--]; 
+		  		})
+		  	.append("div")
+			    .style("width", function(d) {
+			    	return 15 + "px";
+			    })
+			    .text(function(d) { return d; });
 
 		var parser, xmlDoc;
 
 		setInterval(function(){
 	    $.ajax({ url: "https://mosc.nicholas-fong.com/api/v1/stats", success: function(data){
-
 
 	    	parser = new DOMParser();
 				xmlDoc = parser.parseFromString(data,"text/xml");
@@ -107,7 +142,7 @@
 			    .data(ecall_data)
 			    .style("width", function(d) { 
 			    	var sum = ecall_data[0] + ecall_data[1]; 
-		    		return d / sum * 300 + "px";
+		    		return d / sum * 1100 + "px";
 			    })
 			  	.text(function(d) { return d; });
 
@@ -116,7 +151,7 @@
 			    .data(call_data)
 			    .style("width", function(d) { 
 			    	var sum = call_data[0] + call_data[1]; 
-		    		return d / sum * 300 + "px";
+		    		return d / sum * 1100 + "px";
 			    })
 			  	.text(function(d) { return d; });
 
@@ -125,7 +160,7 @@
 			    .data(sms_data)
 			    .style("width", function(d) { 
 			    	var sum = sms_data[0] + sms_data[1]; 
-		    		return d / sum * 300 + "px";
+		    		return d / sum * 1100 + "px";
 			    })
 			  	.text(function(d) { return d; });
 
@@ -134,7 +169,7 @@
 			    .data(web_data)
 			    .style("width", function(d) { 
 			    	var sum = web_data[0] + web_data[1]; 
-		    		return d / sum * 300 + "px";
+		    		return d / sum * 1100 + "px";
 			    })
 			  	.text(function(d) { return d; });
 			  	
