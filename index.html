@@ -127,7 +127,7 @@
 		var parser, xmlDoc;
 
 		setInterval(function(){
-	    $.ajax({ url: "https://mosc.nicholas-fong.com/api/v1/stats", success: function(data){
+	    $.ajax({ url: "https://mosc-twilio.herokuapp.com/api/v1/stats", success: function(data){
 
 	    	parser = new DOMParser();
 				xmlDoc = parser.parseFromString(data,"text/xml");
