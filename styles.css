@@ -72,18 +72,23 @@ html, body {
 	padding-right: 30px;
 }
 
+.analytics-data h3 {
+	margin-left: 68px;
+	margin-bottom: 20px;
+}
+
 .analytics-data ul {
-	margin-left: 10px;
+	margin-left: 30px;
 	list-style-type: none;
 }
 
 .analytics-data li {
+	padding-right: 120px;
 	display: inline-block;
 }
 
 .chart {
-	padding-right: 150px;
-	margin-top: 20px;
+	margin-top: 10px;
 	margin-bottom: 20px;
 }
 
@@ -96,18 +101,26 @@ html, body {
   color: white;
 }
 
+.subheading {
+	font-size: 18px;
+}
+
 .analytics-data hr {
 	border: 0;
   height: 0;
-  width: 90%;
+  width: 87%;
   border-top: 1px solid rgba(0, 0, 0, 0.1);
   border-bottom: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .explanation {
 	font-size: 16px;
-	padding-left: 50px;
-	padding-right: 50px;
+	padding-left: 68px;
+	padding-right: 68px;
+}
+
+.explanation h4 {
+	margin-top: 30px;
 }
 
 .explanation div {

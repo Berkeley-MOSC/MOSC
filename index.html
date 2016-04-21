@@ -18,7 +18,7 @@
 		  	</div>
 
 		  	<form>
-					The control panel below will let you make calls, send messages or look up websites through the cell tower access point that we built.
+					The control panel below will let you make calls, send messages or look up websites through the cell tower that we built.
 				</form>
 
 		  	<form action="https://moscbackend.nicholas-fong.com/api/v1/emergency_call">
@@ -53,21 +53,24 @@
 		  	</div>
 		  	
 		  	<div class="analytics-data">
+
+		  		<h3>Traffic received at our cell tower</h3>
+
 		  		<ul>
 			  		<li>
-			  			<h4>Emergency calls</h4>
+			  			<span class="subheading">Emergency calls</span>
 			  			<div class="chart ecall-chart"></div>
 			  		</li>
 						<li>
-							<h4>Regular calls</h4>
+							<span class="subheading">Regular calls</span>
 							<div class="chart call-chart"></div>
 						</li>
 						<li>
-							<h4>Text messages</h4>
+							<span class="subheading">Text messages</span>
 							<div class="chart sms-chart"></div>
 						</li>
 						<li>
-							<h4>Web searches</h4>
+							<span class="subheading">Web searches</span>
 							<div class="chart web-chart"></div>
 						</li>
 					</ul>
@@ -75,12 +78,12 @@
 					<hr>
 
 					<div class="explanation">
-						<h3>So what is really happening?</h3>
+						<h4>So what is really happening?</h4>
 						<div>
-							As you know, everything from your phone, whether it's calls, text messages, or data all go through cell towers. During disasters, cell towers get overwhelmed with traffic and go down. What we're doing is making sure that the important stuff can go through in times of emergency by dropping less essential traffic and preventing cell towers from being overloaded.
+							As you know, everything from your phone, whether it's calls, text messages, or data all go through cell towers. During disasters, cell towers get overwhelmed with traffic and go down. What we're doing is making sure that the important stuff can go through by dropping less essential traffic and preventing cell towers from getting overloaded.
 						</div>
 						<div>
-							What you see on this page is our modest demo. The control panel on the left lets you send traffic towards a cell tower that we built remotely. The graphs above show what kind of data we received, and how many we actually serve. The calls/texts/etc. that aren't served are dropped so our cell tower doesn't get overwhelmed.
+							What you see on this page is our demo. The control panel on the left lets you send traffic towards a cell tower that we built remotely. The graphs above show what kind of data we received, and how many we actually serve. The calls/texts/searches that aren't served are dropped so our cell tower doesn't get overwhelmed.
 						</div>
 					</div>
 		  	</div>
@@ -142,7 +145,7 @@
 			    .data(ecall_data)
 			    .style("width", function(d) { 
 			    	var sum = ecall_data[0] + ecall_data[1]; 
-		    		return d / sum * 1100 + "px";
+		    		return d / sum * 1200 + "px";
 			    })
 			  	.text(function(d) { return d; });
 
@@ -151,7 +154,7 @@
 			    .data(call_data)
 			    .style("width", function(d) { 
 			    	var sum = call_data[0] + call_data[1]; 
-		    		return d / sum * 1100 + "px";
+		    		return d / sum * 1200 + "px";
 			    })
 			  	.text(function(d) { return d; });
 
@@ -160,7 +163,7 @@
 			    .data(sms_data)
 			    .style("width", function(d) { 
 			    	var sum = sms_data[0] + sms_data[1]; 
-		    		return d / sum * 1100 + "px";
+		    		return d / sum * 1200 + "px";
 			    })
 			  	.text(function(d) { return d; });
 
@@ -169,7 +172,7 @@
 			    .data(web_data)
 			    .style("width", function(d) { 
 			    	var sum = web_data[0] + web_data[1]; 
-		    		return d / sum * 1100 + "px";
+		    		return d / sum * 1200 + "px";
 			    })
 			  	.text(function(d) { return d; });
 			  	
