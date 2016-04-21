@@ -20,7 +20,7 @@ mosc_buff = mf.mosc_buffer()
 twil_num = "+12566671171"
 twil_msg = "This is the data being sent."
 ################### Routes #####################
-@app.route('/api/v1/http/')
+@app.route('/api/v1/http')
 def url_endpoint():
     url = request.args.get('url')
     if pass_connection('data'):
@@ -31,7 +31,7 @@ def url_endpoint():
     else:
         return generate_503()
 
-@app.route('/api/v1/sms/')
+@app.route('/api/v1/sms')
 def sms_endpoint():
     number = request.args.get('number')
     message = request.args.get('message')
@@ -40,7 +40,7 @@ def sms_endpoint():
     else:
         return reject_sms()
 
-@app.route('/api/v1/call/')
+@app.route('/api/v1/call')
 def call_endpoint():
     number = request.args.get('number')
     message = request.args.get('message')
@@ -49,7 +49,7 @@ def call_endpoint():
     else:
         return reject_call()
 
-@app.route('/api/v1/emergency_call/')
+@app.route('/api/v1/emergency_call')
 def e_call_endpoint():
     number = request.args.get('number')
     if pass_connection("ecall"):
