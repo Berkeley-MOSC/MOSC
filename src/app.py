@@ -60,7 +60,7 @@ def e_call_endpoint():
 
 @app.route('/api/v1/stats')
 def return_stats():
-    xml = "<stats>"
+    xml = "<stats>\n"
     # Emergency calls
     xml += "    <ecall>\n"
     xml += "        <received>"
