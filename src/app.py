@@ -102,6 +102,8 @@ def return_stats():
     xml += "</data>"
     res = Response(xml, mimetype='text/xml')
     res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Methods", "GET")
+    res.header("Access-Control-Allow-Headers", "x-requested-with,Content-Type,Origin");
     return res
 
 ################### Responses #####################
