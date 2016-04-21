@@ -1,19 +1,17 @@
-from flask import Flask, render_template, abort, request, redirect
 import requests
 import filter as mf
-# import twilio.twiml
+from flask import Flask, render_template, abort, request, redirect
 import twilio.twiml
+from twilio.rest import TwilioRestClient
 
 app = Flask(__name__)
 #TWILIO CREDENTIALS###
-from twilio.rest import TwilioRestClient
- 
+
 # Find these values at https://twilio.com/user/account
+# TODO: Change these credentials since they're now in the repo history
 account_sid = "AC5d82215d4d388331b5076dde9bb50ef9"
 auth_token = "4388759bc6c4455bcd983069cbb88c49"
 client = TwilioRestClient(account_sid, auth_token)
-
-mf_instance = mf.mosc_buffer()
 
 ###############GLOBAL VARS###########################
 # set up buffer for filtering algorithm
@@ -107,19 +105,17 @@ def return_stats():
 ################### Responses #####################
 # returns true or false whether we can connect
 def pass_connection(connection_type):
-    #resp = twilio.twiml.Response()
-    #resp.say("Your face")
     if type(connection_type) is not str:
         raise ValueError("conneciton_type must be of type str")
     packet = Packet(connection_type)
     success = mosc_buff.add(packet)
     if success:
         return True
-    else: 
+    else:
         return False
     #     # call apporporaite send_ funciton
     #     if connection_type == "data":
-    #         # send_call(twil_num, twil_msg) 
+    #         # send_call(twil_num, twil_msg)
     #         # ASK NICK
     #     if connection_type == "call":
     #         send_call(twil_num, twil_msg)
@@ -141,42 +137,34 @@ def pass_connection(connection_type):
 
 def generate_503():
     resp = twilio.twiml.Response()
-	return render_template('503view.html'), 503
+    return render_template('503view.html'), 503
 
 def send_sms(number, message):
     # resp = twilio.twiml.Response()
     message = client.messages.create(to=number, from_=twil_num,
                                      body="Hello there, your message been successfully sent!")
 
-    pass
-
 def send_call(number, message):
     resp = twilio.twiml.Response()
     call = client.calls.create(to=number,  # Any phone number
                            from_=twil_num, # Must be a valid Twilio number
                            url="") # SET UP URL FOR VOICE RESPONSE
-    pass
 
 def send_ecall(number):
     resp = twilio.twiml.Response()
     resp.say("Your emergency call has been made. (we can't call 911) ")
-    pass
 
 def reject_sms():
     resp = twilio.twiml.Response()
     resp.say("Sorry your SMS cannot be sent at this time. ")
-    pass
 
 def reject_call():
     resp = twilio.twiml.Response()
     resp.say("Sorry your call cannot be sent at this time. ")
-    pass
 
 def reject_ecall():
     resp = twilio.twiml.Response()
     resp.say("Sorry your emergency call cannot be sent at this time. ")
-    pass
-
 
 ################### Twilio #####################
 callers = {
@@ -184,8 +172,7 @@ callers = {
     "+14158675310": "Boots",
     "+14158675311": "Virgil",
     "+12566671171": "MOSC",
-} 
-
+}
 
 @app.route("/", methods=['GET', 'POST'])
 def root_page():
@@ -194,20 +181,16 @@ def root_page():
     resp = twilio.twiml.Response()
     resp.say("Hi Kelvin")
     # return str(resp)
- 
+
     # if the caller is someone we know:
     # if from_number in callers:
     #     # Greet the caller by name
     #     resp.say("Hello " + callers[from_number])
     # else:
     #     resp.say("Hello Monkey")
- 
+
     # return str(resp)
-
-
-
 
 if __name__ == '__main__':
     app.debug = True
     app.run()
-
