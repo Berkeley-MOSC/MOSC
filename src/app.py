@@ -152,7 +152,8 @@ def send_call(number, message):
 
 def send_ecall(number):
     resp = twilio.twiml.Response()
-    resp.say("Your emergency call has been made. (we can't call 911) ")
+    resp.say("This call represents an emergency call.  If you are experiencing\
+        a real emergency, please hang up now and dial 9-1-1.")
 
 def reject_sms():
     resp = twilio.twiml.Response()
@@ -160,11 +161,11 @@ def reject_sms():
 
 def reject_call():
     resp = twilio.twiml.Response()
-    resp.say("Sorry your call cannot be sent at this time. ")
+    resp.say("Sorry your call cannot be completedat this time. ")
 
 def reject_ecall():
     resp = twilio.twiml.Response()
-    resp.say("Sorry your emergency call cannot be sent at this time. ")
+    resp.say("Sorry your emergency call cannot be completed at this time. ")
 
 ################### Twilio #####################
 callers = {
