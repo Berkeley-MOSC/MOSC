@@ -56,11 +56,11 @@
 	<script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 	<script>
 		setInterval(function(){
-	    $.ajax({ url: "server", success: function(data){
+	    $.ajax({ url: "https://mosc.nicholas-fong.com/api/v1/stats", success: function(data){
         //Update your dashboard gauge
         // salesGauge.setValue(data.value);
         alert(data.value)
-	    }, dataType: "json"});
+	    }, dataType: "xml"});
 		}, 5000);
 	</script>
 </html>
