@@ -58,7 +58,7 @@ def e_call_endpoint():
         return reject_ecall("+12566671171")
 
 
-@app.route('/api/v1/stats/')
+@app.route('/api/v1/stats')
 def return_stats():
     xml = ""
     # Emergency calls
