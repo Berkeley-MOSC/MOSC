@@ -36,7 +36,7 @@
 			    <input type="submit" value="Submit" class="submit">
 			  </form>
 
-		  	<form action="https://moscbackend.nicholas-fong.com/api/v1/url">
+		  	<form action="https://moscbackend.nicholas-fong.com/api/v1/http">
 			    Visit website:<br>
 			    <input type="text" name="url" class="input-field" placeholder="Website Url"><br>
 			    <input type="submit" value="Submit" class="submit">
@@ -90,8 +90,7 @@
 
 				var received = xmlDoc.getElementsByTagName("received");
 				var served = xmlDoc.getElementsByTagName("served");
-				// alert(rec[0].childNodes[0].nodeValue)
-				// alert(rec.length);
+
 				ecall_data[0] = received[0].childNodes[0].nodeValue;
 				ecall_data[1] = served[0].childNodes[0].nodeValue;
 				call_data[0] = received[1].childNodes[0].nodeValue;
