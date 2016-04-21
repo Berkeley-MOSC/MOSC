@@ -21,29 +21,33 @@
 					The control panel below will let you make calls, send messages or look up websites through the cell tower that we built.
 				</form>
 
-		  	<form action="https://moscbackend.nicholas-fong.com/api/v1/emergency_call">
+				<form>
+					<div id="message"></div>
+				</form>
+
+		  	<form action="https://moscbackend.nicholas-fong.com/api/v1/emergency_call" class="form">
 		  		<b>Make emergency call:</b><br>
 		  		<input type="text" name="number" class="input-field" placeholder="Number"><br>
-			    <input type="submit" value="Submit" class="submit">
+			    <input type="submit" value="submit" class="submit">
 			  </form>
 
-			  <form action="https://moscbackend.nicholas-fong.com/api/v1/call">
+			  <form action="https://moscbackend.nicholas-fong.com/api/v1/call" class="form">
 		  		<b>Make non-emergency call:</b><br>
 		  		<input type="text" name="number" class="input-field" placeholder="Number"><br>
-			    <input type="submit" value="Submit" class="submit">
+			    <input type="submit" value="submit" class="submit">
 			  </form>
 
-			  <form action="https://moscbackend.nicholas-fong.com/api/v1/sms">
+			  <form action="https://moscbackend.nicholas-fong.com/api/v1/sms" class="form">
 		  		<b>Send SMS:</b><br>
 		  		<input type="text" name="number" class="input-field" placeholder="Number"><br>
 		  		<input type="text" name="message" class="input-field" placeholder="Message"><br>
-			    <input type="submit" value="Submit" class="submit">
+			    <input type="submit" value="submit" class="submit">
 			  </form>
 
-		  	<form action="https://moscbackend.nicholas-fong.com/api/v1/http">
+		  	<form action="https://moscbackend.nicholas-fong.com/api/v1/http" class="form">
 			    <b>Visit website:</b><br>
 			    <input type="text" name="url" class="input-field" placeholder="Website Url"><br>
-			    <input type="submit" value="Submit" class="submit">
+			    <input type="submit" value="submit" class="submit">
 				</form>
 		  </div>
 		  <div class="col-md-9 analytics">
@@ -94,6 +98,7 @@
 	<script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 	<script>
 
+		var default_data = [0, 0]
 		var ecall_data = [0, 0]; // [received, served]
 		var call_data = [0, 0];
 		var sms_data = [0, 0];
@@ -103,7 +108,7 @@
 
 		d3.selectAll(".chart")
 		  .selectAll("div")
-		    .data(ecall_data)
+		    .data(default_data)
 		  .enter()
 		  	.append("span")
 		  		.text(function(d) {
@@ -114,7 +119,7 @@
 		  		})
 		  	.append("div")
 			    .style("width", function(d) {
-			    	return 15 + "px";
+			    	return 20 + "px";
 			    })
 			    .text(function(d) { return d; });
 
@@ -144,8 +149,8 @@
 			  .selectAll("div")
 			    .data(ecall_data)
 			    .style("width", function(d) { 
-			    	var sum = ecall_data[0] + ecall_data[1]; 
-		    		return d / sum * 1200 + "px";
+			    	var sum = parseFloat(ecall_data[0]) + parseFloat(ecall_data[1]); 
+		    		return (d / sum) * 320 + "px";
 			    })
 			  	.text(function(d) { return d; });
 
@@ -153,8 +158,8 @@
 			  .selectAll("div")
 			    .data(call_data)
 			    .style("width", function(d) { 
-			    	var sum = call_data[0] + call_data[1]; 
-		    		return d / sum * 1200 + "px";
+			    	var sum = parseFloat(call_data[0]) + parseFloat(call_data[1]);
+		    		return (d / sum) * 320 + "px";
 			    })
 			  	.text(function(d) { return d; });
 
@@ -162,8 +167,8 @@
 			  .selectAll("div")
 			    .data(sms_data)
 			    .style("width", function(d) { 
-			    	var sum = sms_data[0] + sms_data[1]; 
-		    		return d / sum * 1200 + "px";
+			    	var sum = parseFloat(sms_data[0]) + parseFloat(sms_data[1]); 
+		    		return (d / sum) * 320 + "px";
 			    })
 			  	.text(function(d) { return d; });
 
@@ -171,11 +176,29 @@
 			  .selectAll("div")
 			    .data(web_data)
 			    .style("width", function(d) { 
-			    	var sum = web_data[0] + web_data[1]; 
-		    		return d / sum * 1200 + "px";
+			    	var sum = parseFloat(web_data[0]) + parseFloat(web_data[1]); 
+		    		return (d / sum) * 320 + "px";
 			    })
 			  	.text(function(d) { return d; });
-			  	
-		}, 5000);
+		}, 2000);
 	</script>
+	<script>
+      $(function() {
+          $(".form").on("submit", function(e) {
+              e.preventDefault();
+              $.ajax({
+                  url: $(this).attr("action"),
+                  type: 'GET',
+                  data: $(this).serialize(),
+                  beforeSend: function() {
+                      $("#message").html("sending...");
+                      setTimeout(function() {
+											    $("#message").hide();
+											}, 1000);
+                  }
+              });
+
+          });
+      });
+  </script>
 </html>
