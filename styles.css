@@ -53,6 +53,8 @@ html, body {
 	padding: 5px 12px 5px 12px;
 }
 
+/*** VISUALIZATION ***/
+
 .analytics-header {
 	padding-top: 38px;
 	text-align: center;
@@ -67,4 +69,13 @@ html, body {
 	margin-left: -15px;
 	margin-right: -15px;
 	padding: 15px;
+}
+
+.chart div {
+  font: 10px sans-serif;
+  background-color: blue;
+  text-align: right;
+  padding: 3px;
+  margin: 1px;
+  color: white;
 }
