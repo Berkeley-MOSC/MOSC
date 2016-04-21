@@ -100,7 +100,9 @@ def return_stats():
     xml += mf_instance.num_served_data()
     xml += "    </served>\n"
     xml += "</data>"
-    return Response(xml, mimetype='text/xml')
+    res = Response(xml, mimetype='text/xml')
+    res.header("Access-Control-Allow-Origin", "*");
+    return res
 
 ################### Responses #####################
 # returns true or false whether we can connect
