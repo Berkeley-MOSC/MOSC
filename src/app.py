@@ -177,6 +177,8 @@ callers = {
 
 @app.route("/", methods=['GET', 'POST'])
 def root_page():
+    html = "Hello world!"
+    return Response(html, mimetype='text/plaintext')
     # Get the caller's phone number from the incoming Twilio request
     from_number = request.values.get('From', None)
     resp = twilio.twiml.Response()
