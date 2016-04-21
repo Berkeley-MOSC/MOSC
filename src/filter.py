@@ -4,7 +4,7 @@ import threading
 import random
 
 class mosc_buffer(object):
-	def __init__(self, arg):
+	def __init__(self):
 		self.created = time.time()
 		super(mosc_buffer, self).__init__()
 		self.total = 1000
