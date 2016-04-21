@@ -64,40 +64,40 @@ def return_stats():
     # Emergency calls
     xml += "<ecall>\n"
     xml += "    <received>"
-#    xml += mf_instance.num_received_ecalls()
+    xml += str(mosc_buff.num_received_ecalls())
     xml += "    </received>\n"
     xml += "    <served>"
-#    xml += mf_instance.num_served_ecalls()
+    xml += str(mosc_buff.num_served_ecalls())
     xml += "    </served>\n"
     xml += "</ecall>\n"
 
     # Standard calls
     xml += "<call>\n"
     xml += "    <received>"
-#    xml += mf_instance.num_received_calls()
+    xml += str(mosc_buff.num_received_calls())
     xml += "    </received>\n"
     xml += "    <served>"
-#    xml += mf_instance.num_served_calls()
+    xml += str(mosc_buff.num_served_calls())
     xml += "    </served>\n"
     xml += "</call>\n"
 
     # SMS
     xml += "<sms>\n"
     xml += "    <received>"
-#    xml += mf_instance.num_received_sms()
+    xml += str(mosc_buff.num_received_sms())
     xml += "    </received>\n"
     xml += "    <served>"
-#    xml += mf_instance.num_served_sms()
+    xml += str(mosc_buff.num_served_sms())
     xml += "    </served>\n"
     xml += "</sms>\n"
 
     # Data
     xml += "<data>\n"
     xml += "    <received>"
-#    xml += mf_instance.num_received_data()
+    xml += str(mosc_buff.num_received_data())
     xml += "    </received>\n"
     xml += "    <served>"
-#    xml += mf_instance.num_served_data()
+    xml += str(mosc_buff.num_served_data())
     xml += "    </served>\n"
     xml += "</data>"
     res = Response(xml, mimetype='text/xml')
