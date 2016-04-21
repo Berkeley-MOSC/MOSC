@@ -1,6 +1,6 @@
 import requests
 import filter as mf
-from flask import Flask, render_template, abort, request, redirect
+from flask import Flask, render_template, abort, request, redirect, Response
 import twilio.twiml
 from twilio.rest import TwilioRestClient
 
@@ -101,9 +101,9 @@ def return_stats():
     xml += "    </served>\n"
     xml += "</data>"
     res = Response(xml, mimetype='text/xml')
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Methods", "GET")
-    res.header("Access-Control-Allow-Headers", "x-requested-with,Content-Type,Origin");
+    res.headers["Access-Control-Allow-Origin"] = "*"
+    res.headers["Access-Control-Allow-Methods"] = "GET"
+    res.headers["Access-Control-Allow-Headers"] = "x-requested-with,Content-Type,Origin"
     return res
 
 ################### Responses #####################
