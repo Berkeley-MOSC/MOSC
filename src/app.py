@@ -15,7 +15,7 @@ client = TwilioRestClient(account_sid, auth_token)
 
 ###############GLOBAL VARS###########################
 # set up buffer for filtering algorithm
-mosc_buff = mosc_buffer()
+mosc_buff = mf.mosc_buffer()
 
 twil_num = "+12566671171"
 twil_msg = "This is the data being sent."
