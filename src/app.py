@@ -177,7 +177,7 @@ callers = {
 
 @app.route("/")
 def root_page():
-    return 'Hello World!'
+    return 'MOSC Backend Landing Page\nIf you are a user, you should not be seeing this!'
     # Get the caller's phone number from the incoming Twilio request
     from_number = request.values.get('From', None)
     resp = twilio.twiml.Response()
