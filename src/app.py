@@ -60,46 +60,48 @@ def e_call_endpoint():
 
 @app.route('/api/v1/stats')
 def return_stats():
-    xml = ""
+    xml = "<stats>"
     # Emergency calls
-    xml += "<ecall>\n"
-    xml += "    <received>"
+    xml += "    <ecall>\n"
+    xml += "        <received>"
     xml += str(mosc_buff.num_received_ecalls())
     xml += "</received>\n"
-    xml += "    <served>"
+    xml += "        <served>"
     xml += str(mosc_buff.num_served_ecalls())
     xml += "</served>\n"
-    xml += "</ecall>\n"
+    xml += "    </ecall>\n"
 
     # Standard calls
-    xml += "<call>\n"
-    xml += "    <received>"
+    xml += "    <call>\n"
+    xml += "        <received>"
     xml += str(mosc_buff.num_received_calls())
     xml += "</received>\n"
-    xml += "    <served>"
+    xml += "        <served>"
     xml += str(mosc_buff.num_served_calls())
     xml += "</served>\n"
-    xml += "</call>\n"
+    xml += "    </call>\n"
 
     # SMS
-    xml += "<sms>\n"
-    xml += "    <received>"
+    xml += "    <sms>\n"
+    xml += "        <received>"
     xml += str(mosc_buff.num_received_sms())
     xml += "</received>\n"
-    xml += "    <served>"
+    xml += "        <served>"
     xml += str(mosc_buff.num_served_sms())
     xml += "</served>\n"
-    xml += "</sms>\n"
+    xml += "    </sms>\n"
 
     # Data
-    xml += "<data>\n"
-    xml += "    <received>"
+    xml += "    <data>\n"
+    xml += "        <received>"
     xml += str(mosc_buff.num_received_data())
     xml += "</received>\n"
-    xml += "    <served>"
+    xml += "        <served>"
     xml += str(mosc_buff.num_served_data())
     xml += "</served>\n"
-    xml += "</data>"
+    xml += "    </data>\n"
+
+    xml += "</stats>"
     res = Response(xml, mimetype='text/xml')
     res.headers["Access-Control-Allow-Origin"] = "*"
     res.headers["Access-Control-Allow-Methods"] = "GET"
