@@ -113,8 +113,8 @@ def return_stats():
 def pass_connection(connection_type):
     if type(connection_type) is not str:
         raise ValueError("conneciton_type must be of type str")
-    packet = Packet(connection_type)
-    success = mosc_buff.add(packet)
+#    packet = Packet(connection_type)
+    success = mosc_buff.add(connection_type)
     if success:
         return True
     else:
