@@ -19,45 +19,45 @@ class mosc_buffer(object):
 		self.total_ecalls, self.total_calls, self.total_sms, self.total_data = 0, 0, 0, 0
 		self.served_ecalls, self.served_calls, self.served_sms, self.served_data = 0, 0, 0, 0
 
-	def add(self, packet):
+	def add(self, packet_type):
 		self.reassign_buffers()
-		if self.filter(packet):
-			if packet.type == "data":
+		if self.filter(packet_type):
+			if packet_type == "data":
 				self.served_data += 1
-				self.data.append([time.time(), packet])
+				self.data.append(time.time())
 				return True
-			elif packet.type == "call":
+			elif packet_type == "call":
 				self.served_calls += 1
-				self.calls.append([time.time(), packet])
+				self.calls.append(time.time())
 				return True
-			elif packet.type == "sms":
+			elif packet_type == "sms":
 				self.served_sms += 1
-				self.sms.append([time.time(), packet])
+				self.sms.append(time.time())
 				return True
-			elif packet.type == "emergencies":
+			elif packet_type == "ecall":
 				self.served_ecalls += 1
-				self.emergencies.append([time.time(), packet])
+				self.emergencies.append(time.time())
 				return True
 		return False
 
-	def filter(self, packet):
+	def filter(self, packet_type):
 		prob = 0
-		if packet.type == "data":
+		if packet_type == "data":
 			self.total_data += 1
 			if self.data == None:
 				return False
 			prob = (self.max_data - len(self.data)) / self.past_num_data
-		elif packet.type == "call":
+		elif packet_type == "call":
 			self.total_calls += 1
 			if self.calls == None:
 				return False
 			prob = (self.max_calls - len(self.calls)) / self.past_num_calls
-		elif packet.type == "sms":
+		elif packet_type == "sms":
 			self.total_sms += 1
 			if self.sms == None:
 				return False
 			prob = (self.max_sms - len(self.sms)) / self.past_num_sms
-		elif packet.type == "emergencies":
+		elif packet_type == "ecall":
 			self.total_ecalls += 1
 			prob = (self.max_emergencies - len(self.emergencies)) / self.past_num_emergencies
 		if prob > 1:

@@ -9,7 +9,7 @@ mf_instance = mf.mosc_buffer()
 @app.route('/api/v1/http/')
 def url_endpoint():
     url = request.args.get('url')
-    if pass_connection('url'):
+    if pass_connection('data'):
         # Generate request to the URL, serve back to user
         req = request.get(url, stream = True)
         return Response(stream_with_context(req.iter_content()),
@@ -89,7 +89,7 @@ def return_stats():
 
 ################### Responses #####################
 def pass_connection(connection_type):
-    pass
+    return mf_instance(connection_type)
 
 def generate_503():
     pass
