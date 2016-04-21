@@ -50,16 +50,13 @@
 		  	
 		  	<div class="analytics-data">
 		  		
-		  		<div class="chart">
-					  <div style="width: 40px;">4</div>
-					  <div style="width: 80px;">8</div>
-					  <div style="width: 150px;">15</div>
-					  <div style="width: 160px;">16</div>
-					  <div style="width: 230px;">23</div>
-					  <div style="width: 420px;">42</div>
-					</div>
-
-
+		  		<div class="chart ecall-chart"></div>
+		  		<br />
+					<div class="chart call-chart"></div>
+					<br />
+					<div class="chart sms-chart"></div>
+					<br />
+					<div class="chart web-chart"></div>
 		  	</div>
 		  </div>
 		</div>
@@ -67,13 +64,81 @@
 
 	<script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 	<script>
-		var data;
+
+		var ecall_data = [0, 0]; // [received, served]
+		var call_data = [0, 0];
+		var sms_data = [0, 0];
+		var web_data = [0, 0];
+
+		d3.selectAll(".chart")
+		  .selectAll("div")
+		    .data(ecall_data)
+		  .enter().append("div")
+		    .style("width", function(d) {
+		    	return 10 + "px"; 
+		    })
+		    .text(function(d) { return d; });
+
+		var parser, xmlDoc;
+
 		setInterval(function(){
 	    $.ajax({ url: "https://mosc.nicholas-fong.com/api/v1/stats", success: function(data){
-        //Update your dashboard gauge
-        // salesGauge.setValue(data.value);
-        data = data.value
+
+
+	    	parser = new DOMParser();
+				xmlDoc = parser.parseFromString(data,"text/xml");
+
+				var received = xmlDoc.getElementsByTagName("received");
+				var served = xmlDoc.getElementsByTagName("served");
+				// alert(rec[0].childNodes[0].nodeValue)
+				// alert(rec.length);
+				ecall_data[0] = received[0].childNodes[0].nodeValue;
+				ecall_data[1] = served[0].childNodes[0].nodeValue;
+				call_data[0] = received[1].childNodes[0].nodeValue;
+				call_data[1] = served[1].childNodes[0].nodeValue;
+				sms_data[0] = received[2].childNodes[0].nodeValue;
+				sms_data[1] = served[2].childNodes[0].nodeValue;
+				web_data[0] = received[3].childNodes[0].nodeValue;
+				web_data[1] = served[3].childNodes[0].nodeValue;
+        
 	    }, dataType: "text"});
+
+	    d3.select(".ecall-chart")
+			  .selectAll("div")
+			    .data(ecall_data)
+			    .style("width", function(d) { 
+			    	var sum = ecall_data[0] + ecall_data[1]; 
+		    		return d / sum * 300 + "px";
+			    })
+			  	.text(function(d) { return d; });
+
+			d3.select(".call-chart")
+			  .selectAll("div")
+			    .data(call_data)
+			    .style("width", function(d) { 
+			    	var sum = call_data[0] + call_data[1]; 
+		    		return d / sum * 300 + "px";
+			    })
+			  	.text(function(d) { return d; });
+
+			d3.select(".sms-chart")
+			  .selectAll("div")
+			    .data(sms_data)
+			    .style("width", function(d) { 
+			    	var sum = sms_data[0] + sms_data[1]; 
+		    		return d / sum * 300 + "px";
+			    })
+			  	.text(function(d) { return d; });
+
+			d3.select(".web-chart")
+			  .selectAll("div")
+			    .data(web_data)
+			    .style("width", function(d) { 
+			    	var sum = web_data[0] + web_data[1]; 
+		    		return d / sum * 300 + "px";
+			    })
+			  	.text(function(d) { return d; });
+			  	
 		}, 5000);
 	</script>
 </html>
