@@ -1,12 +1,15 @@
 from flask import Flask
 import requests
+import filter as mf
 app = Flask(__name__)
+
+mf_instance = mf.mosc_buffer()
 
 ################### Routes #####################
 @app.route('/api/v1/http/')
 def url_endpoint():
     url = request.args.get('url')
-    if pass_connection('url'):
+    if pass_connection('data'):
         # Generate request to the URL, serve back to user
         req = request.get(url, stream = True)
         return Response(stream_with_context(req.iter_content()),
@@ -46,47 +49,47 @@ def return_stats():
     # Emergency calls
     xml += "<ecall>\n"
     xml += "    <received>"
-    xml += filter.num_received_ecalls()
+    xml += mf_instance.num_received_ecalls()
     xml += "    </received>\n"
     xml += "    <served>"
-    xml += filter.num_served_ecalls()
+    xml += mf_instance.num_served_ecalls()
     xml += "    </served>\n"
     xml += "</ecall>\n"
 
     # Standard calls
     xml += "<call>\n"
     xml += "    <received>"
-    xml += filter.num_received_calls()
+    xml += mf_instance.num_received_calls()
     xml += "    </received>\n"
     xml += "    <served>"
-    xml += filter.num_served_calls()
+    xml += mf_instance.num_served_calls()
     xml += "    </served>\n"
     xml += "</call>\n"
 
     # SMS
     xml += "<sms>\n"
     xml += "    <received>"
-    xml += filter.num_received_sms()
+    xml += mf_instance.num_received_sms()
     xml += "    </received>\n"
     xml += "    <served>"
-    xml += filter.num_served_sms()
+    xml += mf_instance.num_served_sms()
     xml += "    </served>\n"
     xml += "</sms>\n"
 
     # Data
     xml += "<data>\n"
     xml += "    <received>"
-    xml += filter.num_received_data()
+    xml += mf_instance.num_received_data()
     xml += "    </received>\n"
     xml += "    <served>"
-    xml += filter.num_served_data()
+    xml += mf_instance.num_served_data()
     xml += "    </served>\n"
     xml += "</data>"
     return Response(xml, mimetype='text/xml')
 
 ################### Responses #####################
 def pass_connection(connection_type):
-    pass
+    return mf_instance(connection_type)
 
 def generate_503():
     pass
