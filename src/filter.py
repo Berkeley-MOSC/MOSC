@@ -14,8 +14,8 @@ class mosc_buffer(object):
 		self.max_call = self.total * 0.3
 		self.max_sms = self.total * 0.4
 		self.max_emergencies = self.total * 0.2
-		threading.Timer(5.0, refresh_buffer).start()
-		threading.Timer(1.0, expire).start()
+		threading.Timer(5.0, self.refresh_buffer).start()
+		threading.Timer(1.0, self.expire).start()
 		self.total_ecalls, self.total_calls, self.total_sms, self.total_data = 0, 0, 0, 0
 		self.served_ecalls, self.served_calls, self.served_sms, self.served_data = 0, 0, 0, 0
 
