@@ -24,7 +24,6 @@
 			  <form action="moscbackend.nicholas-fong.com/api/v1/call">
 		  		Make non-emergency call:<br>
 		  		<input type="text" name="number" class="input-field" placeholder="Number"><br>
-		  		<input type="text" name="message" class="input-field" placeholder="Message"><br>
 			    <input type="submit" value="Submit" class="submit">
 			  </form>
 
@@ -55,4 +54,13 @@
 	</body>
 
 	<script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+	<script>
+		setInterval(function(){
+	    $.ajax({ url: "server", success: function(data){
+        //Update your dashboard gauge
+        // salesGauge.setValue(data.value);
+        alert(data.value)
+	    }, dataType: "json"});
+		}, 5000);
+	</script>
 </html>
