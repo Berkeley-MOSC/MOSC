@@ -136,13 +136,13 @@
 				var served = xmlDoc.getElementsByTagName("served");
 
 				ecall_data[0] = received[0].childNodes[0].nodeValue;
-				ecall_data[1] = Math.floor(served[0].childNodes[0].nodeValue/2);
+				ecall_data[1] = Math.floor(served[0].childNodes[0].nodeValue);
 				call_data[0] = received[1].childNodes[0].nodeValue;
-				call_data[1] = Math.floor(served[1].childNodes[0].nodeValue/3);
+				call_data[1] = Math.floor(served[1].childNodes[0].nodeValue/2);
 				sms_data[0] = received[2].childNodes[0].nodeValue;
 				sms_data[1] = Math.floor(served[2].childNodes[0].nodeValue/4);
 				web_data[0] = received[3].childNodes[0].nodeValue;
-				web_data[1] = Math.floor(served[3].childNodes[0].nodeValue/5);
+				web_data[1] = Math.floor(served[3].childNodes[0].nodeValue/6);
         
 	    }, dataType: "text"});
 
