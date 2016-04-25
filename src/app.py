@@ -23,14 +23,14 @@ twil_msg = "This is the data being sent."
 
 ################## Input Sanitization ######################
 def sanitize_number(number):
-    return ''.join([c for c in number if c.isdigit()])
+    return ''.join([c for c in number if c.isdigit()]) if number else None
 
 def sanitize_text(text):
-    return ''.join([c for c in text if c.isalnum()])
+    return ''.join([c for c in text if c.isalnum()]) if text else None
 
 def sanitize_url(url):
     extra_valid_url_chars = "-._~:/?#[]@!$&'()*+,;="
-    return ''.join([c for c in url if c in extra_valid_url_chars or c.isalnum()])
+    return ''.join([c for c in url if c in extra_valid_url_chars or c.isalnum()]) if url else None
 
 ################### Routes #####################
 @app.route('/api/v1/http')
