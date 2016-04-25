@@ -60,7 +60,7 @@ class mosc_buffer(object):
 		elif packet_type == "ecall":
 			self.total_ecalls += 1
 			prob = (self.max_emergencies - len(self.emergencies)) / self.past_num_emergencies if self.past_num_emergencies else 1
-		if prob > 1:
+		if prob >= 1:
 			return True
 		return random.random() < prob
 
@@ -89,6 +89,41 @@ class mosc_buffer(object):
 		if len(self.emergencies) <= self.max_emergencies / 2 and self.max_sms == 0:
 			self.max_sms = self.max_emergencies / 4
 			self.max_emergencies -= self.max_sms
+		total = self.max_data + self.max_call + self.max_sms + self.max_emergencies
+		if total == 1:
+			return
+		if total < 1:
+			self.max_emergencies += 1 - total
+			return
+		if total > 1:
+			remainder = total - 1
+			if self.max_data != 0:
+				if self.max_data >= remainder:
+					self.max_data -= remainder
+					total -= remainder
+					return
+				if self.max_data < remainder:
+					remainder -= self.max_data
+					total -= self.max_data
+					self.max_data = 0
+				total = self.max_data + self.max_call + self.max_sms + self.max_emergencies
+				if self.max_call >= remainder:
+					self.max_call -= remainder
+					total -= remainder
+					return
+				if self.max_call < remainder:
+					remainder -= self.max_call
+					total -= self.max_call
+					self.max_call = 0
+				total = self.max_data + self.max_call + self.max_sms + self.max_emergencies
+				if self.max_sms >= remainder:
+					self.max_sms -= remainder
+					total -= remainder
+					return
+				if self.max_sms < remainder:
+					remainder -= self.max_sms
+					total -= self.max_sms
+					self.max_sms = 0
 
 	def expire(self):
 		self.data = [x for x in self.data if not self.expired_data(x)]
