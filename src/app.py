@@ -28,22 +28,8 @@ def sanitize_number(number):
 def sanitize_text(text):
     return ''.join([c for c in text if c.isalnum()]) if text else None
 
-def sanitize_url(url):
-    extra_valid_url_chars = "-._~:/?#[]@!$&'()*+,;="
-    return ''.join([c for c in url if c in extra_valid_url_chars or c.isalnum()]) if url else None
 
 ################### Routes #####################
-@app.route('/api/v1/http')
-def url_endpoint():
-    url = sanitize_url(request.args.get('url'))
-    if pass_connection('data'):
-        # Generate request to the URL, serve back to user
-        req = request.get(url, stream = True)
-        return Response(stream_with_context(req.iter_content()),
-                content_type = req.headers['content-type'])
-    else:
-        return generate_503()
-
 @app.route('/api/v1/sms')
 def sms_endpoint():
     number = sanitize_number(request.args.get('number'))
@@ -104,16 +90,6 @@ def return_stats():
     xml += "</served>\n"
     xml += "    </sms>\n"
 
-    # Data
-    xml += "    <data>\n"
-    xml += "        <received>"
-    xml += str(mosc_buff.num_received_data())
-    xml += "</received>\n"
-    xml += "        <served>"
-    xml += str(mosc_buff.num_served_data())
-    xml += "</served>\n"
-    xml += "    </data>\n"
-
     xml += "</stats>"
     res = Response(xml, mimetype='text/xml')
     res.headers["Access-Control-Allow-Origin"] = "*"
@@ -155,10 +131,6 @@ def pass_connection(connection_type):
     #         reject_ecall()
     #     if connection_type == "sms":
     #         reject_sms()
-
-def generate_503():
-    resp = twilio.twiml.Response()
-    return render_template('503view.html'), 503
 
 def send_sms(number, message):
     # resp = twilio.twiml.Response()
