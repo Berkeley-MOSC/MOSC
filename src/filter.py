@@ -51,7 +51,7 @@ class mosc_buffer(object):
 			self.total_calls += 1
 			if self.calls == None:
 				return False
-			prob = (self.max_calls - len(self.calls)) / self.past_num_calls if self.past_num_calls else 1
+			prob = (self.max_call - len(self.calls)) / self.past_num_calls if self.past_num_calls else 1
 		elif packet_type == "sms":
 			self.total_sms += 1
 			if self.sms == None:
