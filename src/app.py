@@ -43,10 +43,10 @@ def sms_endpoint():
 def call_endpoint():
     number = sanitize_number(request.args.get('number'))
     message = sanitize_text(request.args.get('message'))
-    if pass_connection("call"):
-        return send_call(number, message)
-    else:
-        return reject_call()
+    # if pass_connection("call"):
+    try_send_call(number, message)
+    # else:
+        # return reject_call()
 
 @app.route('/api/v1/emergency_call')
 def e_call_endpoint():
@@ -137,7 +137,7 @@ def send_sms(number, message):
     message = client.messages.create(to=number, from_=twil_num,
                                      body="Hello there, your message been successfully sent!")
 
-def send_call(number, message):
+def try_send_call(number, message):
     resp = twilio.twiml.Response()
     text = ""
 
@@ -181,7 +181,7 @@ def reject_sms():
 
 def reject_call():
     resp = twilio.twiml.Response()
-    resp.say("Sorry your call cannot be completedat this time. ")
+    resp.say("Sorry your call cannot be completed at this time. ")
 
 def reject_ecall():
     resp = twilio.twiml.Response()
