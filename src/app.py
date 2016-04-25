@@ -139,14 +139,41 @@ def send_sms(number, message):
 
 def send_call(number, message):
     resp = twilio.twiml.Response()
-    call = client.calls.create(to=number,  # Any phone number
-                           from_=twil_num, # Must be a valid Twilio number
-                           url="") # SET UP URL FOR VOICE RESPONSE
+    text = ""
+
+    if pass_connection('call'):
+        #respond with  YES that TWIML understands
+        text = "Your call has successfully gone through."
+    else:
+        #respond with NO
+        text = "Your call has been dropped due to an emergency right now."
+    xml = "<Response>"
+    xml += "    <Say>"
+    xml += text
+    xml += "</Say>\n"
+    xml += "</Response>"
+    resp.say(xml)
+
 
 def send_ecall(number):
+
     resp = twilio.twiml.Response()
-    resp.say("This call represents an emergency call.  If you are experiencing\
-        a real emergency, please hang up now and dial 9-1-1.")
+    text = ""
+
+    if pass_connection('ecall'):
+        #respond with  YES that TWIML understands
+        text = "Your emergency call has successfully gone through."
+    else:
+        #respond with NO
+        text = "Your emergency call has been dropped due to an emergency right now."
+    xml = "<Response>"
+    xml += "    <Say>"
+    xml += text
+    xml += "</Say>\n"
+    xml += "</Response>"
+    resp.say(xml)
+    # resp.say("This call represents an emergency call.  If you are experiencing\
+    #     a real emergency, please hang up now and dial 9-1-1.")
 
 def reject_sms():
     resp = twilio.twiml.Response()
