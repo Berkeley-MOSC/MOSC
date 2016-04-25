@@ -119,6 +119,9 @@ def return_stats():
     res.headers["Access-Control-Allow-Origin"] = "*"
     res.headers["Access-Control-Allow-Methods"] = "GET"
     res.headers["Access-Control-Allow-Headers"] = "x-requested-with,Content-Type,Origin"
+    res.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
+    res.headers["Pragma"] = "no-cache"
+    res.headers["Expires"] = "0"
     return res
 
 ################### Responses #####################
