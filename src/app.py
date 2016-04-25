@@ -19,10 +19,23 @@ mosc_buff = mf.mosc_buffer()
 
 twil_num = "+12566671171"
 twil_msg = "This is the data being sent."
+
+
+################## Input Sanitization ######################
+def sanitize_number(number):
+    return ''.join([c for c in number if c.isdigit()])
+
+def sanitize_text(text):
+    return ''.join([c for c in text if c.isalnum()])
+
+def sanitize_url(url):
+    extra_valid_url_chars = "-._~:/?#[]@!$&'()*+,;="
+    return ''.join([c for c in url if c in extra_valid_url_chars or c.isalnum()])
+
 ################### Routes #####################
 @app.route('/api/v1/http')
 def url_endpoint():
-    url = request.args.get('url')
+    url = sanitize_url(request.args.get('url'))
     if pass_connection('data'):
         # Generate request to the URL, serve back to user
         req = request.get(url, stream = True)
@@ -33,8 +46,8 @@ def url_endpoint():
 
 @app.route('/api/v1/sms')
 def sms_endpoint():
-    number = request.args.get('number')
-    message = request.args.get('message')
+    number = sanitize_number(request.args.get('number'))
+    message = sanitize_text(request.args.get('message'))
     if pass_connection("sms"):
         return send_sms(number, message)
     else:
@@ -42,8 +55,8 @@ def sms_endpoint():
 
 @app.route('/api/v1/call')
 def call_endpoint():
-    number = request.args.get('number')
-    message = request.args.get('message')
+    number = sanitize_number(request.args.get('number'))
+    message = sanitize_text(request.args.get('message'))
     if pass_connection("call"):
         return send_call(number, message)
     else:
@@ -51,7 +64,7 @@ def call_endpoint():
 
 @app.route('/api/v1/emergency_call')
 def e_call_endpoint():
-    number = request.args.get('number')
+    number = sanitize_number(request.args.get('number'))
     if pass_connection("ecall"):
         return send_ecall(number)
     else:
@@ -139,7 +152,6 @@ def pass_connection(connection_type):
     #         reject_ecall()
     #     if connection_type == "sms":
     #         reject_sms()
-    pass
 
 def generate_503():
     resp = twilio.twiml.Response()
