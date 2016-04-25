@@ -44,7 +44,7 @@ def call_endpoint():
     number = sanitize_number(request.args.get('number'))
     message = sanitize_text(request.args.get('message'))
     # if pass_connection("call"):
-    try_send_call(number, message)
+    return try_send_call(number, message)
     # else:
         # return reject_call()
 
@@ -152,7 +152,7 @@ def try_send_call(number, message):
     xml += text
     xml += "</Say>\n"
     xml += "</Response>"
-    resp.say(xml)
+    return resp.say(xml)
 
 
 def send_ecall(number):
