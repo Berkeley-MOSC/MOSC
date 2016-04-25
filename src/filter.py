@@ -90,12 +90,12 @@ class mosc_buffer(object):
 			self.max_sms = self.max_emergencies / 4
 			self.max_emergencies -= self.max_sms
 		total = self.max_data + self.max_call + self.max_sms + self.max_emergencies
-		if total == 1:
+		if total == self.total:
 			return
-		if total < 1:
+		if total < self.total:
 			self.max_emergencies += 1 - total
 			return
-		if total > 1:
+		if total > self.total:
 			remainder = total - 1
 			if self.max_data != 0:
 				if self.max_data >= remainder:
