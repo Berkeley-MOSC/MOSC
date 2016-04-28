@@ -8,9 +8,8 @@ app = Flask(__name__)
 #TWILIO CREDENTIALS###
 
 # Find these values at https://twilio.com/user/account
-# TODO: Change these credentials since they're now in the repo history
-account_sid = "AC5d82215d4d388331b5076dde9bb50ef9"
-auth_token = "4388759bc6c4455bcd983069cbb88c49"
+account_sid = os.environ.get('TWILIO_SID')
+auth_token = os.environ.get('TWILIO_AUTH_TOKEN')
 client = TwilioRestClient(account_sid, auth_token)
 
 ###############GLOBAL VARS###########################
