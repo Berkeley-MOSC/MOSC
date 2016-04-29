@@ -120,7 +120,7 @@ def try_send_sms(number, message):
         bod = "Your SMS has been dropped due to an emergency right now."
     msg = "<Response><Sms from="
     msg += twil_num 
-    msg += "to="
+    msg += " to="
     msg += number
     msg+= ">"
     msg += bod
