@@ -111,26 +111,6 @@ def pass_connection(connection_type):
         return True
     else:
         return False
-    #     # call apporporaite send_ funciton
-    #     if connection_type == "data":
-    #         # send_call(twil_num, twil_msg)
-    #         # ASK NICK
-    #     if connection_type == "call":
-    #         send_call(twil_num, twil_msg)
-    #     if connection_type == "emergency":
-    #         send_ecall(twil_num)
-    #     if connection_type == "sms":
-    #         send_sms(twil_num, twil_msg)
-    # else:
-    #     # call appropriate reject_ function
-    #     if connection_type == "data":
-    #         #ASK NICK
-    #     if connection_type == "call":
-    #         reject_call()
-    #     if connection_type == "emergency":
-    #         reject_ecall()
-    #     if connection_type == "sms":
-    #         reject_sms()
 
 def try_send_sms(number, message):
     #resp = twilio.twiml.Response()
@@ -177,20 +157,10 @@ def try_send_ecall(number):
     xml += "</Say>\n"
     xml += "</Response>"
     resp.say(xml)
+    return str(resp)
     # resp.say("This call represents an emergency call.  If you are experiencing\
     #     a real emergency, please hang up now and dial 9-1-1.")
 
-def reject_sms():
-    resp = twilio.twiml.Response()
-    resp.say("Sorry your SMS cannot be sent at this time. ")
-
-def reject_call():
-    resp = twilio.twiml.Response()
-    resp.say("Sorry your call cannot be completed at this time. ")
-
-def reject_ecall():
-    resp = twilio.twiml.Response()
-    resp.say("Sorry your emergency call cannot be completed at this time. ")
 
 ################### Twilio #####################
 callers = {
