@@ -18,6 +18,7 @@ client = TwilioRestClient(account_sid, auth_token)
 mosc_buff = mf.mosc_buffer()
 
 twil_num = "+12566671171"
+twil_emer_num = "+18446875686"
 twil_msg = "This is the data being sent."
 
 
@@ -50,10 +51,10 @@ def call_endpoint():
 @app.route('/api/v1/emergency_call')
 def e_call_endpoint():
     number = sanitize_number(request.args.get('number'))
-    if pass_connection("ecall"):
-        return send_ecall(number)
-    else:
-        return reject_ecall("+12566671171")
+    #if pass_connection("ecall"):
+    return try_send_ecall(number)
+    #else:
+    #    return reject_ecall("+12566671171")
 
 
 @app.route('/api/v1/stats')
@@ -146,10 +147,10 @@ def try_send_call(number, message):
 
     if pass_connection('call'):
         #respond with  YES that TWIML understands
-        text = "Your call has successfully gone through."
+        text = "Your regular call has successfully gone through."
     else:
         #respond with NO
-        text = "Your call has been dropped due to an emergency right now."
+        text = "Your regular call has been dropped due to an emergency right now."
     xml = "<Response>"
     xml += "    <Say>"
     xml += text
@@ -159,7 +160,7 @@ def try_send_call(number, message):
     return str(resp)
 
 
-def send_ecall(number):
+def try_send_ecall(number):
 
     resp = twilio.twiml.Response()
     text = ""
