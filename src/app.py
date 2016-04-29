@@ -110,24 +110,35 @@ def pass_connection(connection_type):
         return True
     else:
         return False
+    #     # call apporporaite send_ funciton
+    #     if connection_type == "data":
+    #         # send_call(twil_num, twil_msg)
+    #         # ASK NICK
+    #     if connection_type == "call":
+    #         send_call(twil_num, twil_msg)
+    #     if connection_type == "emergency":
+    #         send_ecall(twil_num)
+    #     if connection_type == "sms":
+    #         send_sms(twil_num, twil_msg)
+    # else:
+    #     # call appropriate reject_ function
+    #     if connection_type == "data":
+    #         #ASK NICK
+    #     if connection_type == "call":
+    #         reject_call()
+    #     if connection_type == "emergency":
+    #         reject_ecall()
+    #     if connection_type == "sms":
+    #         reject_sms()
 
 def try_send_sms(number, message):
-    resp = twilio.twiml.Response()
-    bod = ""
+    #resp = twilio.twiml.Response()
     if pass_connection('sms'):
         bod = message
     else:
         bod = "Your SMS has been dropped due to an emergency right now."
-    msg = "<Response><Sms from="
-    msg += twil_num 
-    msg += " to="
-    msg += number
-    msg+= ">"
-    msg += bod
-    msg += "</Sms>"
-    msg += "</Response>"
-    resp.say(msg)
-    return str(resp)
+    message = client.messages.create(to=number, from_=twil_num,
+                                     body=bod)
 
 def try_send_call(number, message):
     resp = twilio.twiml.Response()
