@@ -41,18 +41,15 @@ def sms_endpoint():
 
 @app.route('/api/v1/call')
 def call_endpoint():
-    number = sanitize_number(request.args.get('number'))
-    message = sanitize_text(request.args.get('message'))
     # if pass_connection("call"):
-    return try_send_call(number, message)
+    return try_send_call()
     # else:
         # return reject_call()
 
 @app.route('/api/v1/emergency_call')
 def e_call_endpoint():
-    number = sanitize_number(request.args.get('number'))
     #if pass_connection("ecall"):
-    return try_send_ecall(number)
+    return try_send_ecall()
     #else:
     #    return reject_ecall("+12566671171")
 
@@ -121,7 +118,7 @@ def try_send_sms(number, message):
     message = client.messages.create(to=number, from_=twil_num,
                                      body=bod)
 
-def try_send_call(number, message):
+def try_send_call():
     resp = twilio.twiml.Response()
     text = ""
 
@@ -140,7 +137,7 @@ def try_send_call(number, message):
     return str(resp)
 
 
-def try_send_ecall(number):
+def try_send_ecall():
 
     resp = twilio.twiml.Response()
     text = ""
