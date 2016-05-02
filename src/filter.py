@@ -7,7 +7,7 @@ class mosc_buffer(object):
 	def __init__(self):
 		self.created = time.time()
 		super(mosc_buffer, self).__init__()
-		self.total = 15
+		self.total = 5
 		self.data, self.calls, self.sms, self.emergencies = [], [], [], []
 		self.past_num_data, self.past_num_calls, self.past_num_sms, self.past_num_emergencies = 0, 0, 0, 0
 		self.max_data = self.total * 0.1
