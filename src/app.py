@@ -144,7 +144,7 @@ def try_send_ecall():
 
     if pass_connection('ecall'):
         #respond with  YES that TWIML understands
-        text = "Your emergency call has successfully completed; if this were a real emergency, you would be speaking with an operator now.  If this is a real emergency, please hang up and dial 9-1-1"
+        text = "Your emergency call has successfully completed; if this were a real emergency, you would be speaking with an operator now.  If this is a real emergency, please hang up and dial 9 1 1"
     else:
         #respond with NO
         text = "All circuits are busy now; please try again later.  MOSC"
